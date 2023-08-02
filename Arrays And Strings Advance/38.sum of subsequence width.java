@@ -40,6 +40,9 @@ class Solution {
         long ans = 0;
         long p = 1;
         for(int i = 0;i < nums.length;i++) {
+            // int fromst = p * nums[i]
+            // int fromlst = p * nums[nums.length -1 -i];
+            // ans = (ans + fromst - fromlst) % MOD
             ans = (ans + p * nums[i] - p * nums[nums.length - 1 - i]) % MOD;
             p = (p * 2) % MOD;
         }

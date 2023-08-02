@@ -34,11 +34,12 @@ L L L L L L L L L L . . . R R R R R R R . L L . . . R
 class Solution {
     public String pushDominoes(String dominoes) {
         dominoes = "L" + dominoes + "R";
-        int pi = 0;
+        int pi = 0;//previous index
         char[] arr = dominoes.toCharArray();
         
         for(int i = 0;i < arr.length;i++) {
             if(arr[i] == 'R'){
+                //hamra 'R' h and prevoius idx 'L' pe h i.e LR wala case
                 if(arr[pi] == 'L') {
                     //do nothing
                 } else if(arr[pi] == 'R') {

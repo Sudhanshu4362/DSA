@@ -68,6 +68,7 @@ class Solution {
         for(int i = 1;i < nums.length;i++){
             mts = Math.max(nums[i],mts);
             if(nums[i] < mtp) {
+                // we may have a partion here
                 pi = i;
                 mtp = mts;
             }

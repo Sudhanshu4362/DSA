@@ -29,7 +29,9 @@ class Solution {
                 list.add(new int[]{lo,hi});
             }
             if(firstList[i][1] < secondList[j][1]) {
+                //jiska ending point kam hoga usko move krege
                 i++;
+            
             } else {
                 j++;
             }

@@ -3,7 +3,7 @@
 // they combine and move with smaller velocity of two return how many combination of such car to reach the dest.
 
 /* Approach:
-1.Maintain a HashMap of group of position against speed
+1.Maintain a TreeMap of group of position against speed
 2.now get every set from last and get pos and speed and calulate distance as target - pos and time required to 
 reach the destination by dividing dist to time.
 3.if same time means same fleet but if curr time is greater then prev. time then it will not come with prev. fleet 
@@ -28,7 +28,7 @@ class Solution {
         }
         double time = 0;
         int groups = 0;
-        //last wala pehle milega i.e from last
+        // sabse bda pehle milega i.e 10 
         for(Map.Entry<Integer,Integer> car : map.entrySet()) {
             int pos = car.getKey();
             int spd = car.getValue();
