@@ -21,13 +21,13 @@ l = r => 2 1 boat will be needed to board
 class Solution {
     public int numRescueBoats(int[] people, int limit) {
         int ans = 0;
-        Arrays.sor
-        int r = peoplet(people);
-        int l = 0;.length - 1;
+        Arrays.sort(people);
+        int l = 0;
+        int r = people.length - 1;
         while(l < r) {
-            int val = people[l] + people[r];
+            int weight = people[l] + people[r];
             
-            if(val <= limit) {
+            if(weight <= limit) {
                 ans++;
                 l++;
                 r--;
