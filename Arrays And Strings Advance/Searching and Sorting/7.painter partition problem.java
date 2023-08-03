@@ -38,7 +38,7 @@ class Solution{
                 }
             }
             if(pntreq > k){
-                //painter req exceed given painters 
+                //painter req exceed given painters -> kam time used move to larger time
                 lta = ta + 1;
             } else {
                 hta = ta;
