@@ -1,5 +1,4 @@
-// Link -> https://www.scaler.com/topics/course/free-computer-networks-course/
-
+// Link -> https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 /* approach :
 1.lo and hi at 0 and length
 2.calculate mid = (lo + hi)/2
