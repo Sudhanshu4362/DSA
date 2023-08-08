@@ -20,6 +20,7 @@ class Solution {
             } else if(nums[hi] < nums[mid]) {
                 lo = mid + 1;
             } else {
+                //equal ka case
                 hi--;
             }
         }
