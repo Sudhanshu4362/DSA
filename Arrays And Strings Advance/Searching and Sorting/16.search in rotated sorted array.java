@@ -43,3 +43,39 @@ class Solution {
         return -1;
     }
 }
+class Solution {
+    public int search(int[] nums, int target) {
+        int lo = 0;
+        int hi = nums.length - 1;
+        while(lo < hi) {
+            //search lowest element
+            int mid = (lo + hi)/2;
+            if(nums[mid] < nums[hi]) {
+                hi = mid;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        // get no of rotations by finding lowest element index
+        int rot = lo;
+        int ls = binarySearch(nums,0,rot - 1,target);
+        if(ls != -1){
+            return ls;
+        }
+        int rs = binarySearch(nums,rot,nums.length - 1,target);
+        return rs;
+    }
+    public int binarySearch(int[] arr,int lo,int hi,int val){
+        while(lo <= hi){
+            int mid = (lo + hi)/2;
+            if(val > arr[mid]){
+                lo = mid +1;
+            } else if(val < arr[mid]){
+                hi = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+}
