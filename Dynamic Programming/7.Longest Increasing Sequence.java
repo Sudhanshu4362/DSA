@@ -46,3 +46,68 @@ class Solution {
         return len;
     }
 }
+
+// O(NlogN) -> solution
+/* Approach:
+1.we will create trails list 
+2.loop on array and decide wheather it can be part of last list or not if yes clone it and add next element to it
+3.for same length sequences discard the list with greater value
+4.we will maintain end points of lists and store it in tails array
+
+TO SEARCH RIGHT SPOT FOR NOT GREATER CASE : 
+use Arrays.binarysearch(tails,0,len-1,nums[i]) but it is not in array so idx will be -ve.and it also gives its 
+potential position also but in -ve i.e if hota toh is index pe hota 
+
+       i i i i  i i  i  i i i i i  i
+arr -> 0 8 4 12 2 10 6 14 1 9 5 13 3
+    0
+    0-8 -> X
+    0-4 -> X
+    0-4-12 -> X
+    0-2 -> X
+    0-2-10 -> X
+    0-2-6-14 -> X
+    0-1
+    0-2-6-9
+    0-1-5 -> X
+    0-2-6-9-13
+    0-1-3
+
+ tails array will contain end point of each list and we update if we get better list for same lengths by replacing
+ that number in array.
+ tails : [0,1,3,9,13] -> final array after parsing all, length of this array is lis
+first parse 0 and for 8 check if 8 can be added next to zero greater h add it
+4 8 ke peeche nhi lg skta but zero ke peeche lg skta h and discard 0-8 (4 < 8) bcz if 4-8 ke bech ko koi number 4
+ke peeche hi lg skta h.
+2 aayega to 0-4 bhi discard
+*/
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int len = 1;
+        
+        int[] tails = new int[nums.length];//contains end points of arr
+        tails[0] = nums[0];//add 1st element to list i.e end point to tails
+        
+        
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] > tails[len - 1]){
+                //if greater -> increase the lenngth and add it to new list
+                len++;
+                tails[len - 1] = nums[i];//add end point to array 
+            } else {
+                //not greater then last search for right spot to add next element
+                int idx = Arrays.binarySearch(tails, 0, len - 1, nums[i]);
+                
+                if(idx < 0){
+                    //make idx +ve
+                    idx = -idx;
+                    idx = idx - 1;//make position to index
+                }
+                tails[idx] = nums[i];
+            }
+        }
+        
+        return len;
+    }
+}
