@@ -19,7 +19,7 @@ public class Main {
     public static int climbStairsVairable(int[] arr,int n){
         int[] dp = new Integer[n + 1];
         dp[n] = 0;
-        for(int i = n-1; >= 0;i++){
+        for(int i = n-1;i >= 0;i++){
             if(arr[i] > 0){
                 //if jumps h toh ja skte h aaagey
                 int min = Integer.MAX_VALUE;

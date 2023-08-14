@@ -24,9 +24,10 @@ public class Main {
     public static int climbStairsVairable(int[] arr,int n){
         int[] dp = new int[n + 1];
         dp[n] = 1;
-        for(int i = n-1; >= 0;i++){
+        for(int i = n-1;i >= 0;i++){
             dp[i] = 0;
             for(int j = i + 1;j <= i + arr[i];j++){
+                //jumps allowed from jumps array
                 if(j < dp.length) {
                     dp[i] = dp[i] + dp[j];
                 }
