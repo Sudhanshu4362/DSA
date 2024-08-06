@@ -1,0 +1,46 @@
+// https://www.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1 
+// if on right child add it to current diagonal else for left diagonal changes
+
+
+
+class Tree
+{
+    static int md = 0;
+    static void traversal(Node root, int diag, HashMap<Integer, ArrayList<Integer>> map){
+        if(root == null){
+            return;
+        }
+        //diag update
+        if(diag > md){
+            md = diag;
+        }
+
+        //coming first time
+        if(map.containsKey(diag) == false){
+            map.put(diag, new ArrayList<>());
+            map.get(diag).add(root.data);
+        } else {
+            map.get(diag).add(root.data);
+        }
+
+        traversal(root.left, diag + 1, map);
+        traversal(root.right, diag, map);//right ke liye no diag change
+    }
+    public ArrayList<Integer> diagonal(Node root)
+    {
+           //add your code here.
+        HashMap<Integer,ArrayList<Integer>> map = new HashMap<>();
+        traversal(root,0,map); //to fill map
+        ArrayList<Integer> total = new ArrayList<>();
+        for(int d = 0;d <= md;d++){
+            ArrayList<Integer> list = map.get(d);
+            if(list == null){
+                continue;
+            }
+            for(int item : list) {
+                total.add(item);
+            }
+        }
+        return total;
+    }
+}

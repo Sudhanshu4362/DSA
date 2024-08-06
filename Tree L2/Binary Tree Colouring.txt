@@ -1,0 +1,48 @@
+// https://leetcode.com/problems/binary-tree-coloring-game/description/
+
+/* Two players are playing a game where they select a node from BT and color them ,they can select only adjecent nodes to previous selected all node you are player 2 return wheather player 2 can win or not you win if you color the most of the nodes
+
+Intuition -> restrict player 2 by chosing closer nodes to node selected by player1 => player 2 if and only if max of nodes selected by player2 is greater then half of total size of tree
+
+Approach : 
+1.get leftsize and rsize of x using size funtion
+2.get other size by subtracting left + right + 1(x) 
+3.get max of above three sizes and get rest size by n-max and check if max is greater then rest or not
+*/
+
+class Solution {
+    int xleftSize;
+    int xrightSize;
+
+    public int size(TreeNode node,int x) {
+
+        if(node == null) {
+            return 0;
+        }
+        int ls = size(node.left,x);
+        int rs = size(node.right,x);
+
+        if(node.val == x) {
+            xleftSize = ls;
+            xrightSize = rs;
+        }
+
+        int ts = ls + rs + 1;
+        return ts;
+    }
+
+    public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
+        size(root,x);//left and right of x ka size aa gya
+
+        int theOtherSize = n - (xleftSize + xrightSize + 1);
+
+        int max = Math.max(theOtherSize,Math.max(xleftSize,xrightSize));
+
+        int rest = n - max;
+        if(max > rest) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

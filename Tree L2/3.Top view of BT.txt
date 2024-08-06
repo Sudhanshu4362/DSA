@@ -1,0 +1,126 @@
+// https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
+
+// return a list of nodes containing nodes that are visible from top => har verticle ka pehla 
+
+//Intuition
+/*
+Maintain a queue of pairs that contain nodes and horizontal  and a hashmap horiz vs Node
+
+ */
+
+/* Approach :
+1.Add root to the queue and while queue is not empty remove from queue and if left verticle is is less then update lv and if rv is greater then horiz then update rv 
+2. Now check if removed nodes horizontal was present previously or its coming first time then only put node against this horizonyal
+3.if temp ka node ka left is not null then create a pair with left node and update horizontal by -1 and  and add this pair to the queue and same for right child but horizontal update by +1.
+4.now loop from left verticle to right verticle and add data from map and return it.
+*/
+
+//code : 
+class Solution {
+    class Pair {
+        Node node;
+        int horiz = 0;
+    }
+    static ArrayList<Integer> topView(Node root) {
+        // add your code
+        ArrayList<Integer> retVal = new ArrayList<>();
+        HashMap<Integer,Node> map = new HashMap<>();
+        int lv = 0;
+        int rv = 0;
+        Queue<Pair> q = new LinkedList<>();
+        Pair p = new Pair();
+        p.node = root;
+        p.horiz = 0;
+        q.add(p);
+
+        while(q.size() > 0){
+            Pair temp = q.remove();
+            //update lv and rv
+            if(temp.horiz  < lv) {
+                lv = temp.horiz;
+            }
+            if(temp.horiz > rv) {
+                rv = temp.horiz;
+            }
+            //add to HM if already not added
+            if(map.containsKey(temp.horiz) == false){
+                map.put(temp.horiz,temp.node);
+            }
+
+            //add left and right childs
+            if(temp.node.left != null) {
+                Pair lp = new Pair();
+                lp.node = temp.node.left;
+                lp.horiz = temp.horiz - 1;
+                q.add(lp);
+            }
+
+             if(temp.node.right != null) {
+                Pair lp = new Pair();
+                lp.node = temp.node.right;
+                lp.horiz = temp.horiz + 1;
+                q.add(lp);
+            }
+        }
+        //loop from lv to rv to print
+        for(int i = lv;i<=rv;i++){
+            retVal.add(map.get(i).data);
+        }
+        return retVal;
+    }
+}
+
+//bottom view => same as above but while adding to HM do not check for already existing or not as we want to print last now
+
+
+class Solution {
+    class Pair {
+        Node node;
+        int horiz = 0;
+    }
+    static ArrayList<Integer> topView(Node root) {
+        // add your code
+        ArrayList<Integer> retVal = new ArrayList<>();
+        HashMap<Integer,Node> map = new HashMap<>();
+        int lv = 0;
+        int rv = 0;
+        Queue<Pair> q = new LinkedList<>();
+        Pair p = new Pair();
+        p.node = root;
+        p.horiz = 0;
+        q.add(root);
+
+        while(q.size() > 0){
+            Pair temp = q.remove();
+            //update lv and rv
+            if(temp.horiz  < lv) {
+                lv = temp.horiz;
+            }
+            if(temp.horiz > rv) {
+                rv = temp.horiz;
+            }
+            //add to HM
+            map.put(temp.horiz,temp.node);
+
+            //add left and right childs
+            if(temp.node.left != null) {
+                Pair lp = new Pair();
+                lp.node = temp.node.left;
+                lp.horiz = temp.horiz - 1;
+                q.add(lp);
+            }
+
+             if(temp.node.right != null) {
+                Pair lp = new Pair();
+                lp.node = temp.node.right;
+                lp.horiz = temp.horiz + 1;
+                q.add(lp);
+            }
+        }
+        //loop from lv to rv to print
+        for(int i = lv;i<=rv;i++){
+            retVal.add(map.get(i).data);
+        }
+        return retVal;
+    }
+}

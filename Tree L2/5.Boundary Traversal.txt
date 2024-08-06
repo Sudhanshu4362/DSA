@@ -1,0 +1,65 @@
+// https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+
+// print left boundary right boundary and nodes & leaf nodes.
+
+// Intuition : preorder for left wall and post order for right wall and function to add leaves.
+
+
+/*Approach :
+1.function Lwall to print left boundary using preOrder
+2.function for leaves nodes
+3.then postorder for right boundary
+4.then add root node to list and call for left wall to add left nodes then call leaves 2 times for left and right nodes and in last call rightwall
+*/
+
+
+//code : 
+class Solution
+{
+    public static void leftwall(Node node,ArrayList<Integer>list){
+        if(node == null) {
+            return;
+        }
+        if(node.left != null || node.right != null) {
+            list.add(node.data);
+        }
+        if(node.left != null) {
+            leftwall(node.left,list);
+        } else if(node.right != null){
+            leftwall(node.right,list);
+        }
+    }
+    public static void leaves(Node node,ArrayList<Integer>list){
+        if(node == null) {
+            return;
+        }
+        leaves(node.left,list);
+        if(node.left == null && node.right == null) {
+            list.add(node.data);
+        }
+        leaves(node.right,list);
+    }
+    public static void rightwall(Node node,ArrayList<Integer>list) {
+       if(node == null) {
+            return;
+        }
+        if(node.right != null) {
+            rightwall(node.right,list);
+        } else if(node.left != null){
+            rightwall(node.left,list);
+        } 
+        if(node.left != null || node.right != null) {
+            list.add(node.data);
+        }
+    }
+	ArrayList <Integer> boundary(Node node)
+	{
+	  ArrayList<Integer> list = new ArrayList<>();
+	  list.add(node.data);
+	  leftwall(node.left,list);
+	  leaves(node.left,list);
+	  leaves(node.right,list);
+	  rightwall(node.right,list);
+	  return list;
+	}
+}
